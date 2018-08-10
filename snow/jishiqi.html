@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box"></div>
+	</body>
+	<script>
+		var box = document.getElementById('box');
+		function Counter(da,id){
+			this. _dateValue = new Date(da);
+			this.id = id;
+		}
+		Counter.prototype.count = function(){
+				var dateValue = new Date();
+				var counN =this. _dateValue-dateValue;
+				var sec = Math.ceil(counN/1000%60);
+				var hour =Math.floor(counN/1000%86400/3600);
+				var min = Math.floor(counN/1000%3600/60);
+				this.id.innerHTML = '<span>'+hour+'</span>时'+'<span>'+min+'</span>分'+'<span>'+sec+'</span>秒';	
+		}
+		
+		
+		var counter = new Counter('2018/08/10 00:00:00', box);
+		var timer = setInterval(fn1,1000);
+		function fn1(){
+			counter.count();
+		}
+		
+	</script>
+</html>

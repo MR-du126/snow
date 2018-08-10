@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>雪花</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			#box {
+				width: 1400px;
+				height: 780px;
+				position: relative;
+				background: url(img/timg.jpg) no-repeat;
+				background-size: 1400px 1000px;
+				cursor: pointer;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="box">
+		</div>
+	</body>
+	<script>
+		(function() {
+			var box = document.getElementById('box');
+			var btn = document.getElementById('btn');
+			var snows = [];
+			function Snow(x, y) {
+				this.y = y;
+				this.x = x;
+				
+			}
+			Snow.clear = function(){
+			
+			}
+			Snow.prototype = {
+				dropSnow: function() {
+					var imgs = [];
+					var snow = document.createElement('img');
+					var snowSize = Math.floor(Math.random() * 30) + 20;
+					var Sc_width = document.body.clientWidth;
+					var Sc_height = document.body.clientHeight;
+					var snowLeft = Math.floor(Math.random() * Sc_width);
+					var snowTop = 0;
+					var timer;
+					snow.src = 'img/863ce6e1e119cc3ff7d5620df41b50a6.png';
+					snow.className = "snow";
+					snow.style.position = 'absolute';
+					snow.style.top = this.y + 'px';
+					snow.style.left = this.x + 'px';
+					snow.width = snowSize;
+					snow.height = snowSize;
+					box.insertBefore(snow, box.childNodes[0]);
+					var timer = setInterval(snowMove, 100);
+					var _this = this;
+					function snowMove() {
+						_this.y += 2;
+						snow.style.top = _this.y + 'px';
+						if(_this.y == 780) {
+							box.removeChild(snow);
+							console.log(12);
+
+						}
+					}
+				}
+			}
+			function Arr(arrs){
+				for(var i = 0;i<arrs.length;i++){
+					console.log(arrs[1]);
+				}
+			}
+			box.onclick = function(e) {
+				//console.log(e);
+				var client_x = e.clientX;
+				var client_y = e.clientY;
+				var snow = new Snow(client_x, client_y);
+				console.log(Reflect.ownKeys(snow));
+				snows.push(snow);
+				snow.dropSnow();
+				
+				return snows;
+
+			}
+			
+			/*snow.onmouseenter = function(e){
+				console.log(e);
+				//var arr = new Arr(snows);
+				
+				
+			}*/
+			
+			
+
+			/*var flag = setInterval(proSnow,1000);
+			function proSnow(){
+				Snow();
+			};*/
+		})();
+	</script>
+
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>放大镜</title>
+		<style>
+			*{
+				padding:0;
+				margin:0;
+			}
+			#left{
+				width:300px;
+				height:200px;
+				background:url('img/19.jpg')0 0 no-repeat;
+				background-size:300px 200px;
+				float:left;
+			}
+			#left_inner{
+				width:75px;
+				height:50px;
+				background: red;
+				opacity: 0;
+			}
+			#right{
+				width:0;
+				height:0;
+				float: left;
+				position: relative;
+				overflow: hidden;
+			}
+			img{
+				width:1200px;
+				height:800px;
+			}
+			#main{
+				width:300px;
+				height:200px;
+				
+				position: absolute;
+				top:0;
+				left:0;
+				z-index:1;
+				
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div id = "box">
+			<div id="left">
+				<div id="left_inner">
+					
+				</div>
+				<div id="main"></div>
+			</div>
+			<div id="right">
+				<img id = "right_img" src="img/19.jpg" alt="图片"/>
+			</div>
+		</div>
+	</body>
+	<script>
+		var main = document.getElementById('main');
+		var left = document.getElementById('left');
+		var leftInner = document.getElementById('left_inner');
+		var rightImg = document.getElementById('right_img');
+		var right = document.getElementById('right');
+		main.onmousemove = function(e){
+			var e = e ||event;
+			right.style.width = 300 +'px';
+			right.style.height = 200 + 'px';
+			leftInner.style.position = 'absolute';
+			leftInner.style.opacity = 0.5;
+			var top = e.offsetY-leftInner.clientHeight/2;
+			var left = e.offsetX-leftInner.clientWidth/2;
+			leftInner.style.top = e.offsetY-leftInner.clientHeight/2+'px';
+			leftInner.style.left = e.offsetX-leftInner.clientWidth/2+"px";
+			if(e.offsetX >= main.clientWidth-leftInner.clientWidth/2){
+				right.style.width = 0 +'px';
+				right.style.height = 0 + 'px';
+				leftInner.style.left = main.clientWidth-leftInner.clientWidth+'px';
+				leftInner.style.opacity = 0;
+				
+			}else if(e.offsetX<=leftInner.clientWidth/2){
+				right.style.width = 0 +'px';
+				right.style.height = 0 + 'px';
+				leftInner.style.left = 0;
+				leftInner.style.opacity = 0;
+			}
+			if(e.offsetY >= main.clientHeight-leftInner.clientHeight/2){
+				right.style.width = 0 +'px';
+				right.style.height = 0 + 'px';
+				leftInner.style.top = main.clientHeight-leftInner.clientHeight+'px';
+				leftInner.style.opacity = 0;
+			}else if(e.offsetY<=leftInner.clientHeight/2){
+				right.style.width = 0 +'px';
+				right.style.height = 0 + 'px';
+				leftInner.style.top = 0;
+				leftInner.style.opacity = 0;
+			}
+			rightImg.style.position = 'absolute';
+			rightImg.style.top = -top*4+'px';
+			console.log();
+			rightImg.style.left = -left*4+'px';
+			
+		}
+		
+	</script>
+</html>
